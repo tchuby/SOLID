@@ -1,0 +1,14 @@
+# Ignorar a pasta vendor de qualquer projeto dentro da pasta SOLID
+**/vendor/
+
+# Ignorar arquivos de ambiente de qualquer subprojeto
+**/.env
+**/.env.*
+
+# Ignorar pastas de IDE e arquivos temporários em qualquer lugar
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/.DS_Store
+**/Thumbs.db
