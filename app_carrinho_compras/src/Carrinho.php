@@ -4,59 +4,38 @@ namespace Tchuby\AppCarrinhoCompras;
 
 class Carrinho
 {
-    //atributos
+    /** @var Item[] */
     private array $itens;
-    private string $status;
-    private float $valorTotal;
 
-    //métodos
     public function __construct()
     {
         $this->itens = [];
-        $this->status = 'vazio';
-        $this->valorTotal = 0;
     }
 
-    public function exibirItens()
+    public function getItens()
     {
         return $this->itens;
     }
 
-    public function adicionarItem(string $item, float $valor)
+    public function adicionarItem(Item $item)
     {
-        array_push($this->itens, ["item" => $item, "valor" => $valor]);
-        $this->valorTotal += $valor;
-        $this->status = 'aberto';
+        array_push($this->itens, $item);
         return true;
-    }
-
-    public function exibirValorTotal()
-    {
-        return $this->valorTotal;
-    }
-
-    public function exibirStatus()
-    {
-        return $this->status;
-    }
-
-    public function confirmarPedido()
-    {
-        if (!$this->validarCarrinho())
-            return false;
-
-        $this->status = 'confirmado';
-        $this->enviarEmailConfirmacao();
-        return true;
-    }
-
-    public function enviarEmailConfirmacao()
-    {
-        echo '<br/>... envia email de confirmação...<br/>';
     }
 
     public function validarCarrinho()
     {
         return count($this->itens) > 0;
+    }
+
+    public function pegarValorCarrinho(): float
+    {
+        $total = 0.0;
+
+        foreach ($this->getItens() as $item) {
+            $total += $item->getValor();
+        }
+
+        return $total;
     }
 }
